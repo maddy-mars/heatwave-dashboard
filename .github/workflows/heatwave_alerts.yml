@@ -1,0 +1,31 @@
+name: Heatwave Alerts
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  heatwave:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+
+      - name: Hourly threshold alerts
+        if: ${{ github.event.schedule != '30 4 * * *' }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: python scripts/heatwave_alert.py
+
+      - name: Daily briefing
+        if: ${{ github.event.schedule == '30 4 * * *' }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: python scripts/heatwave_alert.py --briefing
