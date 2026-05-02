@@ -5,6 +5,11 @@ on:
     - cron: '0 * * * *'
     - cron: '30 4 * * *'
   workflow_dispatch:
+    inputs:
+      briefing:
+        description: 'Run daily briefing (top 10 hottest cities)'
+        type: boolean
+        default: false
 
 jobs:
   heatwave:
@@ -16,16 +21,18 @@ jobs:
           python-version: '3.11'
       - run: pip install requests
 
-      - name: Hourly threshold alerts
-        if: ${{ github.event.schedule != '30 4 * * *' }}
+      - name: Run heatwave script
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-        run: python scripts/heatwave_alert.py
-
-      - name: Daily briefing
-        if: ${{ github.event.schedule == '30 4 * * *' }}
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-        run: python scripts/heatwave_alert.py --briefing
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.briefing }}" == "true" ]]; then
+            echo "📊 Running daily briefing mode (manual trigger)"
+            python scripts/heatwave_alert.py --briefing
+          elif [[ "${{ github.event.schedule }}" == "30 4 * * *" ]]; then
+            echo "📊 Running daily briefing mode (scheduled)"
+            python scripts/heatwave_alert.py --briefing
+          else
+            echo "🌡️ Running hourly alert mode"
+            python scripts/heatwave_alert.py
+          fi
