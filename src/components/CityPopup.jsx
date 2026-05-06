@@ -51,6 +51,12 @@ export default function CityPopup({ city, onClose }) {
             </span>
           </div>
           <div className="popup-detail-row">
+            <span className="popup-detail-label">☀️ UV Index</span>
+            <span className="popup-detail-value" style={{ color: city.uvIndex >= 11 ? '#ff0000' : city.uvIndex >= 8 ? '#f97316' : city.uvIndex >= 6 ? '#eab308' : city.uvIndex >= 3 ? '#22c55e' : '#60a5fa' }}>
+              {city.uvIndex != null ? `${city.uvIndex.toFixed(1)} — ${city.uvIndex >= 11 ? 'Extreme' : city.uvIndex >= 8 ? 'Very High' : city.uvIndex >= 6 ? 'High' : city.uvIndex >= 3 ? 'Moderate' : 'Low'}` : '—'}
+            </span>
+          </div>
+          <div className="popup-detail-row">
             <span className="popup-detail-label">💧 Humidity</span>
             <span className="popup-detail-value" style={{ color: '#60a5fa' }}>
               {city.humidity != null ? `${city.humidity}%` : '—'}
