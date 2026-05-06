@@ -10,7 +10,7 @@ import './App.css'
 async function fetchWeatherData(cities) {
   const lats = cities.map(c => c.lat).join(',')
   const lons = cities.map(c => c.lon).join(',')
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,relative_humidity_2m,apparent_temperature&daily=temperature_2m_max&timezone=Asia%2FKolkata&forecast_days=1`
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&current=temperature_2m,relative_humidity_2m,apparent_temperature&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FKolkata&forecast_days=1`
   const res = await fetch(url)
   const data = await res.json()
   return Array.isArray(data) ? data : [data]
@@ -42,6 +42,7 @@ export default function App() {
             feelsLike: w.current.apparent_temperature ?? null,
             humidity: w.current.relative_humidity_2m,
             maxTemp: w.daily?.temperature_2m_max?.[0] ?? null,
+            nightMin: w.daily?.temperature_2m_min?.[0] ?? null,
           }
         }
       })

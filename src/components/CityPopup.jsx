@@ -39,6 +39,12 @@ export default function CityPopup({ city, onClose }) {
             </span>
           </div>
           <div className="popup-detail-row">
+            <span className="popup-detail-label">🌑 Night Min</span>
+            <span className="popup-detail-value" style={{ color: city.nightMin > 30 ? '#ef4444' : '#60a5fa' }}>
+              {city.nightMin != null ? `${city.nightMin.toFixed(1)}°C${city.nightMin > 30 ? ' 🌙 No Relief' : ''}` : '—'}
+            </span>
+          </div>
+          <div className="popup-detail-row">
             <span className="popup-detail-label">🌡️ Max Today</span>
             <span className="popup-detail-value" style={{ color: '#f97316' }}>
               {city.maxTemp != null ? `${city.maxTemp.toFixed(1)}°C` : '—'}
