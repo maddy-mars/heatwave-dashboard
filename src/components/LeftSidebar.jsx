@@ -34,6 +34,9 @@ export default function LeftSidebar({ top10 }) {
               <div className="city-temp" style={{ color: city.risk?.color || '#fff' }}>
                 {city.temp?.toFixed(1)}°C
               </div>
+              <div className="city-feels" style={{ color: '#aaa', fontSize: '11px' }}>
+                feels {city.feelsLike?.toFixed(1)}°C
+              </div>
               <div className="risk-badge" style={{ backgroundColor: city.risk?.bubbleColor + '33', color: city.risk?.color, borderColor: city.risk?.color }}>
                 {riskEmoji(city.risk?.label)} {city.risk?.label}
               </div>
