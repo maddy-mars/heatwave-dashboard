@@ -33,6 +33,12 @@ export default function CityPopup({ city, onClose }) {
 
         <div className="popup-details">
           <div className="popup-detail-row">
+            <span className="popup-detail-label">🌡️ Feels Like</span>
+            <span className="popup-detail-value" style={{ color: city.risk?.color || '#fff' }}>
+              {city.feelsLike != null ? `${city.feelsLike.toFixed(1)}°C` : '—'}
+            </span>
+          </div>
+          <div className="popup-detail-row">
             <span className="popup-detail-label">🌡️ Max Today</span>
             <span className="popup-detail-value" style={{ color: '#f97316' }}>
               {city.maxTemp != null ? `${city.maxTemp.toFixed(1)}°C` : '—'}
