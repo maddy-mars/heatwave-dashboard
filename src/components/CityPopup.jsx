@@ -54,6 +54,8 @@ export default function CityPopup({ city, onClose }) {
     if (v >= 3) return '#22c55e'
     return '#60a5fa'
   }
+  const waText = 'Heat Alert: ' + city.name + ', ' + city.state + ' | Temp: ' + (city.temp != null ? city.temp.toFixed(1) + 'C' : '-') + ' | Feels Like: ' + (city.feelsLike != null ? city.feelsLike.toFixed(1) + 'C' : '-') + ' | UV: ' + (city.uvIndex != null ? city.uvIndex.toFixed(1) : '-') + ' | Risk: ' + (city.risk ? city.risk.label : '-') + ' | Stay safe! heatwave-dashboard.vercel.app'
+  const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(waText)
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-card" onClick={e => e.stopPropagation()}>
@@ -113,6 +115,7 @@ export default function CityPopup({ city, onClose }) {
         {city.trend7days && city.trend7days.length > 0 && (
           <TrendChart temps={city.trend7days} />
         )}
+        <button onClick={() => window.open(whatsappUrl, '_blank')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '14px', padding: '10px', borderRadius: '8px', backgroundColor: '#25D366', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px', width: '100%' }}>Share on WhatsApp</button>
       </div>
     </div>
   )
