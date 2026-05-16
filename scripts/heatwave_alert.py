@@ -31,7 +31,7 @@ def load_cities(path: str = "public/india_cities.json") -> list:
 def fetch_temperatures(cities: list) -> list:
     """Fetch current temperatures from Open-Meteo API in one bulk call."""
     lats = ",".join(str(c["lat"]) for c in cities)
-    lons = ",".join(str(c["lng"]) for c in cities)
+    lons = ",".join(str(c["lon"]) for c in cities)
 
     url = (
         "https://api.open-meteo.com/v1/forecast"
@@ -92,7 +92,7 @@ def send_telegram(message: str, parse_mode: str = "HTML"):
 def format_alert(city: dict) -> str:
     """Format a single city threshold alert."""
     return (
-        f"\U0001f321\ufe0f <b>{city['city']}, {city['state']}</b>\n"
+        f"\U0001f321\ufe0f <b>{city['name']}, {city['state']}</b>\n"
         f"Temperature: <b>{city['temperature']}\u00b0C</b>\n"
         f"Risk: {city['risk']}"
     )
@@ -137,7 +137,7 @@ def run_briefing(cities_data: list):
         t = city["temperature"]
         risk = "\U0001f534" if t >= 45 else "\U0001f7e0" if t >= 43 else "\U0001f7e1" if t >= 40 else "\u2705"
         lines.append(
-            f"{i}. {risk} <b>{city['city']}, {city['state']}</b> \u2014 {t}\u00b0C"
+            f"{i}. {risk} <b>{city['name']}, {city['state']}</b> \u2014 {t}\u00b0C"
         )
 
     lines.append(
