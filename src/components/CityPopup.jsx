@@ -54,6 +54,11 @@ export default function CityPopup({ city, onClose }) {
     if (v >= 3) return '#22c55e'
     return '#60a5fa'
   }
+  const mx = city.maxTemp != null ? city.maxTemp : 0
+  const fl = city.feelsLike != null ? city.feelsLike : 0
+  const imdLabel = mx >= 47 ? 'EXTREME HEAT WAVE' : mx >= 45 ? 'SEVERE HEAT WAVE' : mx >= 40 ? 'HEAT WAVE' : fl >= 40 ? 'HEAT STRESS' : 'NORMAL'
+  const imdColor = mx >= 47 ? '#7f1d1d' : mx >= 45 ? '#ef4444' : mx >= 40 ? '#f97316' : fl >= 40 ? '#eab308' : '#22c55e'
+  const imdEmoji = mx >= 47 ? '🚨' : mx >= 45 ? '🔴' : mx >= 40 ? '🟠' : fl >= 40 ? '🟡' : '🟢'
   const waText = 'Heat Alert: ' + city.name + ', ' + city.state + ' | Temp: ' + (city.temp != null ? city.temp.toFixed(1) + 'C' : '-') + ' | Feels Like: ' + (city.feelsLike != null ? city.feelsLike.toFixed(1) + 'C' : '-') + ' | UV: ' + (city.uvIndex != null ? city.uvIndex.toFixed(1) : '-') + ' | Risk: ' + (city.risk ? city.risk.label : '-') + ' | Stay safe! heatwave-dashboard.vercel.app'
   const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(waText)
   return (
@@ -74,6 +79,7 @@ export default function CityPopup({ city, onClose }) {
         }}>
           {getRiskEmoji(city.risk?.label)} {city.risk?.label}
         </div>
+        <div style={{ margin: '10px 0 4px 0', padding: '8px 12px', borderRadius: '8px', backgroundColor: imdColor + '22', border: '1px solid ' + imdColor, color: imdColor, fontWeight: '700', fontSize: '13px', textAlign: 'center' }}>{imdEmoji + ' Is My City Safe Today? ' + imdLabel}<span style={{ display: 'block', fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>As per IMD Guidelines</span></div>
         <div className="popup-details">
           <div className="popup-detail-row">
             <span className="popup-detail-label">Feels Like</span>
