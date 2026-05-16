@@ -568,6 +568,7 @@ body {
   .main-layout {
     flex-direction: column;
     overflow: visible;
+    height: auto;
   }
   .left-sidebar, .right-sidebar {
     display: flex;
@@ -575,12 +576,15 @@ body {
     border-right: none;
     border-left: none;
     border-top: 1px solid var(--border);
-    max-height: 320px;
+    height: 300px;
+    max-height: 300px;
+    flex-shrink: 0;
   }
   .map-container {
-    height: 60vw;
-    min-height: 280px;
-    max-height: 420px;
+    height: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    flex-shrink: 0;
   }
   .title-text {
     font-size: 12px;
