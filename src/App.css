@@ -557,11 +557,40 @@ body {
 
 /* ─── RESPONSIVE ──────────────────────────────── */
 @media (max-width: 900px) {
+  body {
+    overflow: auto;
+    height: auto;
+  }
+  .app {
+    height: auto;
+    min-height: 100vh;
+  }
+  .main-layout {
+    flex-direction: column;
+    overflow: visible;
+  }
   .left-sidebar, .right-sidebar {
-    display: none;
+    display: flex;
+    width: 100%;
+    border-right: none;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    max-height: 320px;
+  }
+  .map-container {
+    height: 60vw;
+    min-height: 280px;
+    max-height: 420px;
   }
   .title-text {
     font-size: 12px;
     letter-spacing: 1px;
+  }
+  .topbar-stats {
+    gap: 6px;
+  }
+  .stat-item {
+    min-width: 70px;
+    padding: 4px 6px;
   }
 }
