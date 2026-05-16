@@ -1,3 +1,4 @@
+import { useState } from 'react'
 function TrendChart({ temps }) {
   if (!temps || temps.length < 2) return null
   const minT = Math.min(...temps) - 1
@@ -65,6 +66,15 @@ export default function CityPopup({ city, onClose }) {
   const sleepEmoji = nm >= 31 ? '🚨' : nm >= 28 ? '🥵' : nm >= 25 ? '😓' : '😴'
   const waText = 'Heat Alert: ' + city.name + ', ' + city.state + ' | Temp: ' + (city.temp != null ? city.temp.toFixed(1) + 'C' : '-') + ' | Feels Like: ' + (city.feelsLike != null ? city.feelsLike.toFixed(1) + 'C' : '-') + ' | UV: ' + (city.uvIndex != null ? city.uvIndex.toFixed(1) : '-') + ' | Risk: ' + (city.risk ? city.risk.label : '-') + ' | Stay safe! heatwave-dashboard.vercel.app'
   const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(waText)
+  const [showWater, setShowWater] = useState(false)
+  const [weight, setWeight] = useState(70)
+  const [activity, setActivity] = useState('sedentary')
+  const activityMap = { sedentary: 1.0, light: 1.2, outdoor: 1.5, heavy: 1.8 }
+  const activityLabel = { sedentary: 'Sedentary (Indoor AC)', light: 'Light (Indoor no AC)', outdoor: 'Outdoor Worker', heavy: 'Heavy Labour' }
+  const cityTemp = city.temp != null ? city.temp : 30
+  const base = weight * 35
+  const heatBonus = cityTemp > 30 ? (cityTemp - 30) * 150 : 0
+  const totalLitres = ((base + heatBonus) * activityMap[activity] / 1000).toFixed(1)
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-card" onClick={e => e.stopPropagation()}>
@@ -127,6 +137,8 @@ export default function CityPopup({ city, onClose }) {
           <TrendChart temps={city.trend7days} />
         )}
         <button onClick={() => window.open(whatsappUrl, '_blank')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '14px', padding: '10px', borderRadius: '8px', backgroundColor: '#25D366', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px', width: '100%' }}>Share on WhatsApp</button>
+        <button onClick={() => setShowWater(!showWater)} style={{ marginTop: '8px', padding: '10px', borderRadius: '8px', backgroundColor: '#1d4ed822', border: '1px solid #60a5fa', color: '#60a5fa', cursor: 'pointer', fontWeight: '600', fontSize: '14px', width: '100%' }}>{'💧 ' + (showWater ? 'Hide Water Calculator' : 'Water Requirement Calculator')}</button>
+        {showWater && <div style={{ marginTop: '8px', padding: '12px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid #334155' }}><div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>City Temp: {cityTemp.toFixed(1) + 'C'}</div><div style={{ marginBottom: '8px' }}><label style={{ fontSize: '12px', color: '#aaa' }}>{'Body Weight: ' + weight + ' kg'}</label><input type='range' min='40' max='120' value={weight} onChange={e => setWeight(Number(e.target.value))} style={{ width: '100%', marginTop: '4px' }} /></div><div style={{ marginBottom: '12px' }}><label style={{ fontSize: '12px', color: '#aaa' }}>Activity Level</label><select value={activity} onChange={e => setActivity(e.target.value)} style={{ width: '100%', marginTop: '4px', padding: '6px', borderRadius: '6px', backgroundColor: '#1e293b', color: '#fff', border: '1px solid #334155', fontSize: '12px' }}>{Object.keys(activityMap).map(k => <option key={k} value={k}>{activityLabel[k]}</option>)}</select></div><div style={{ textAlign: 'center', padding: '10px', borderRadius: '8px', backgroundColor: '#1d4ed822', border: '1px solid #60a5fa' }}><div style={{ fontSize: '11px', color: '#888' }}>Recommended Water Intake Today</div><div style={{ fontSize: '24px', fontWeight: '700', color: '#60a5fa', marginTop: '4px' }}>{totalLitres + ' Litres'}</div></div></div>}
       </div>
     </div>
   )
