@@ -83,8 +83,8 @@ export default function CityPopup({ city, onClose }) {
         }}>
           {getRiskEmoji(city.risk?.label)} {city.risk?.label}
         </div>
-        <div style={{ margin: '10px 0 4px 0', padding: '6px 12px', borderRadius: '8px', backgroundColor: imdColor + '22', border: '1px solid ' + imdColor, color: imdColor, fontWeight: '700', fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}><span>Is My City Safe Today?</span><span>{imdEmoji + ' ' + imdLabel}<span style={{ fontSize: '10px', fontWeight: '400', color: '#888', marginLeft: '6px' }}>IMD</span></span></div>
-        <div style={{ margin: '6px 0 4px 0', padding: '6px 12px', borderRadius: '8px', backgroundColor: sleepColor + '22', border: '1px solid ' + sleepColor, color: sleepColor, fontWeight: '700', fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}><span>Tonight Sleep Safety</span><span>{sleepEmoji + ' ' + sleepLabel}<span style={{ fontSize: '10px', fontWeight: '400', color: '#888', marginLeft: '6px' }}>Night Min</span></span></div>
+        <div style={{ margin: '10px 0 4px 0', padding: '6px 12px', borderRadius: '8px', backgroundColor: imdColor + '22', border: '1px solid ' + imdColor, color: imdColor, textAlign: 'center' }}><div style={{ fontWeight: '700', fontSize: '13px' }}>{'Is My City Safe Today? ' + imdLabel + ' ' + imdEmoji}</div><div style={{ fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>As per IMD Guidelines</div></div>
+        <div style={{ margin: '6px 0 4px 0', padding: '6px 12px', borderRadius: '8px', backgroundColor: sleepColor + '22', border: '1px solid ' + sleepColor, color: sleepColor, textAlign: 'center' }}><div style={{ fontWeight: '700', fontSize: '13px' }}>{'Tonight Sleep Safety - ' + sleepLabel + ' ' + sleepEmoji}</div><div style={{ fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>Based on Night Min Temp</div></div>
         <div className="popup-details">
           <div className="popup-detail-row">
             <span className="popup-detail-label">Feels Like</span>
