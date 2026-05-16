@@ -79,7 +79,7 @@ export default function CityPopup({ city, onClose }) {
         }}>
           {getRiskEmoji(city.risk?.label)} {city.risk?.label}
         </div>
-        <div style={{ margin: '10px 0 4px 0', padding: '8px 12px', borderRadius: '8px', backgroundColor: imdColor + '22', border: '1px solid ' + imdColor, color: imdColor, fontWeight: '700', fontSize: '13px', textAlign: 'center' }}>{imdEmoji + ' Is My City Safe Today? ' + imdLabel}<span style={{ display: 'block', fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>As per IMD Guidelines</span></div>
+        <div style={{ margin: '10px 0 4px 0', padding: '8px 12px', borderRadius: '8px', backgroundColor: imdColor + '22', border: '1px solid ' + imdColor, color: imdColor, textAlign: 'center' }}><span style={{ display: 'block', fontWeight: '700', fontSize: '13px' }}>Is My City Safe Today?</span><span style={{ display: 'block', fontWeight: '700', fontSize: '13px', marginTop: '4px' }}>{imdEmoji + ' ' + imdLabel}</span><span style={{ display: 'block', fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>As per IMD Guidelines</span></div>
         <div className="popup-details">
           <div className="popup-detail-row">
             <span className="popup-detail-label">Feels Like</span>
