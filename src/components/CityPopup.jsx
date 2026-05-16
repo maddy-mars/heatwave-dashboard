@@ -7,6 +7,8 @@ function TrendChart({ temps }) {
     const y = 50 - ((t - minT) / (maxT - minT)) * 40
     return x + ',' + y
   }).join(' ')
+  const waText = 'Heat Alert: ' + city.name + ', ' + city.state + ' | Temp: ' + (city.temp != null ? city.temp.toFixed(1) + 'C' : '-') + ' | Feels Like: ' + (city.feelsLike != null ? city.feelsLike.toFixed(1) + 'C' : '-') + ' | UV: ' + (city.uvIndex != null ? city.uvIndex.toFixed(1) : '-') + ' | Risk: ' + (city.risk ? city.risk.label : '-') + ' | Stay safe & hydrated! heatwave-dashboard.vercel.app'
+  const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(waText)
   return (
     <div style={{ marginTop: '12px', padding: '8px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
       <div style={{ fontSize: '11px', color: '#888', marginBottom: '6px' }}>7-DAY MAX TEMP TREND</div>
@@ -113,6 +115,7 @@ export default function CityPopup({ city, onClose }) {
         {city.trend7days && city.trend7days.length > 0 && (
           <TrendChart temps={city.trend7days} />
         )}
+        <button onClick={() => window.open(whatsappUrl, '_blank')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '14px', padding: '10px', borderRadius: '8px', backgroundColor: '#25D366', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px', width: '100%' }}>Share on WhatsApp</button>
       </div>
     </div>
   )
