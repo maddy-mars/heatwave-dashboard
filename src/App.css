@@ -586,6 +586,10 @@ body {
     max-height: 400px;
     flex-shrink: 0;
   }
+  .map-container .leaflet-container {
+    height: 400px !important;
+    width: 100% !important;
+  }
   .title-text {
     font-size: 12px;
     letter-spacing: 1px;
