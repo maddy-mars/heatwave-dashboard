@@ -59,6 +59,10 @@ export default function CityPopup({ city, onClose }) {
   const imdLabel = mx >= 47 ? 'EXTREME HEAT WAVE' : mx >= 45 ? 'SEVERE HEAT WAVE' : mx >= 40 ? 'HEAT WAVE' : fl >= 40 ? 'HEAT STRESS' : 'NORMAL'
   const imdColor = mx >= 47 ? '#7f1d1d' : mx >= 45 ? '#ef4444' : mx >= 40 ? '#f97316' : fl >= 40 ? '#eab308' : '#22c55e'
   const imdEmoji = mx >= 47 ? '🚨' : mx >= 45 ? '🔴' : mx >= 40 ? '🟠' : fl >= 40 ? '🟡' : '🟢'
+  const nm = city.nightMin != null ? city.nightMin : 0
+  const sleepLabel = nm >= 31 ? 'Dangerous — Heat Stress Risk' : nm >= 28 ? 'Hot Night — AC Recommended' : nm >= 25 ? 'Warm Night' : 'Comfortable'
+  const sleepColor = nm >= 31 ? '#ef4444' : nm >= 28 ? '#f97316' : nm >= 25 ? '#eab308' : '#22c55e'
+  const sleepEmoji = nm >= 31 ? '🚨' : nm >= 28 ? '🥵' : nm >= 25 ? '😓' : '😴'
   const waText = 'Heat Alert: ' + city.name + ', ' + city.state + ' | Temp: ' + (city.temp != null ? city.temp.toFixed(1) + 'C' : '-') + ' | Feels Like: ' + (city.feelsLike != null ? city.feelsLike.toFixed(1) + 'C' : '-') + ' | UV: ' + (city.uvIndex != null ? city.uvIndex.toFixed(1) : '-') + ' | Risk: ' + (city.risk ? city.risk.label : '-') + ' | Stay safe! heatwave-dashboard.vercel.app'
   const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(waText)
   return (
@@ -80,6 +84,7 @@ export default function CityPopup({ city, onClose }) {
           {getRiskEmoji(city.risk?.label)} {city.risk?.label}
         </div>
         <div style={{ margin: '10px 0 4px 0', padding: '8px 12px', borderRadius: '8px', backgroundColor: imdColor + '22', border: '1px solid ' + imdColor, color: imdColor, textAlign: 'center' }}><span style={{ display: 'block', fontWeight: '700', fontSize: '13px' }}>Is My City Safe Today?</span><span style={{ display: 'block', fontWeight: '700', fontSize: '13px', marginTop: '4px' }}>{imdEmoji + ' ' + imdLabel}</span><span style={{ display: 'block', fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>As per IMD Guidelines</span></div>
+        <div style={{ margin: '6px 0 4px 0', padding: '8px 12px', borderRadius: '8px', backgroundColor: sleepColor + '22', border: '1px solid ' + sleepColor, color: sleepColor, textAlign: 'center' }}><span style={{ display: 'block', fontWeight: '700', fontSize: '13px' }}>Tonight Sleep Safety</span><span style={{ display: 'block', fontWeight: '700', fontSize: '13px', marginTop: '4px' }}>{sleepEmoji + ' ' + sleepLabel}</span><span style={{ display: 'block', fontSize: '10px', fontWeight: '400', color: '#888', marginTop: '2px' }}>Based on Night Min Temp</span></div>
         <div className="popup-details">
           <div className="popup-detail-row">
             <span className="popup-detail-label">Feels Like</span>
