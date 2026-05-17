@@ -153,7 +153,7 @@ export default function App() {
       </div>
       <Ticker cities={enrichedCities} />
       {selectedCity && (
-        <CityPopup city={selectedCity} onClose={() => setSelectedCity(null)} />
+        <CityPopup city={selectedCity} onClose={() => { setSelectedCity(null); document.body.style.overflow = ''; document.body.style.position = ''; document.body.style.top = ''; window.scrollTo(0, 0); }} />
       )}
     </div>
   )
