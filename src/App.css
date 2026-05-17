@@ -36,6 +36,9 @@ body {
 }
 
 /* ─── TOPBAR ─────────────────────────────────── */
+.mobile-clock {
+  display: none;
+}
 .topbar {
   display: flex;
   align-items: center;
@@ -617,10 +620,15 @@ body {
   .stat-item:nth-child(3), .stat-item:nth-child(4) {
     display: none;
   }
-  .clock-time {
-    font-size: 14px;
+  .topbar-clock {
+    display: none;
   }
-  .clock-date {
+  .mobile-clock {
+    display: block;
     font-size: 9px;
+    color: #888;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    margin-top: 2px;
   }
 }
