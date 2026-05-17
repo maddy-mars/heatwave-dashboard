@@ -648,8 +648,7 @@ body {
   .title-text {
     font-size: 10px !important;
     letter-spacing: 0.5px !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
   }
 }
