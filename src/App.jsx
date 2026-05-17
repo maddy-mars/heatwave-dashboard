@@ -140,7 +140,7 @@ export default function App() {
         <LeftSidebar top10={top10} />
         <MapView
           cities={top3PerState}
-          onCityClick={setSelectedCity}
+          onCityClick={(city) => { const scrollY = window.scrollY; document.body.style.position = 'fixed'; document.body.style.top = '-' + scrollY + 'px'; document.body.style.width = '100%'; setSelectedCity(city); }}
           getHeatColor={(temp) => {
             if (temp < 35) return '#22c55e'
             if (temp < 40) return '#eab308'
@@ -153,7 +153,7 @@ export default function App() {
       </div>
       <Ticker cities={enrichedCities} />
       {selectedCity && (
-        <CityPopup city={selectedCity} onClose={() => { setSelectedCity(null); document.body.style.overflow = ''; document.body.style.position = ''; document.body.style.top = ''; window.scrollTo(0, 0); }} />
+        <CityPopup city={selectedCity} onClose={() => { const scrollY = parseInt(document.body.style.top || '0') * -1; document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = ''; window.scrollTo(0, scrollY); setSelectedCity(null); }} />
       )}
     </div>
   )
