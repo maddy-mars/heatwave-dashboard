@@ -611,4 +611,16 @@ body {
     min-width: 70px;
     padding: 4px 6px;
   }
+  .stat-item.hottest {
+    display: none;
+  }
+  .stat-item:nth-child(3), .stat-item:nth-child(4) {
+    display: none;
+  }
+  .clock-time {
+    font-size: 14px;
+  }
+  .clock-date {
+    font-size: 9px;
+  }
 }
