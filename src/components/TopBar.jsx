@@ -33,7 +33,7 @@ export default function TopBar({ hottestCity, above40Count, countdown, lastUpdat
         <span className="fire-icon">🔥</span>
         <div className="title-wrapper">
           <span className="title-text">INDIA HEATWAVE MONITOR</span>
-          <span className="mobile-clock">{formatIST(time) + ' | ' + formatDate(time) + ' IST'}</span>
+          <span className="mobile-clock">{formatIST(time) + ' | ' + formatDate(time)}</span>
         </div>
         {loading && <span className="loading-badge">UPDATING...</span>}
       </div>
